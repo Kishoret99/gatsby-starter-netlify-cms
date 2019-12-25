@@ -1,4 +1,0 @@
----
-title: Ramajogayya Sastry
----
-

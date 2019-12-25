@@ -6,7 +6,7 @@ import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
-export const SingerTemplate = ({
+export const SongDetailsTemplate = ({
   content,
   contentComponent,
   description,
@@ -18,7 +18,7 @@ export const SingerTemplate = ({
 
   return (
     <section className="section">
-      <h1>Movie details</h1>
+      <h1>{'Movie detailss'}</h1>
       {helmet || ''}
       <div className="container content">
         <div className="columns">
@@ -47,7 +47,7 @@ export const SingerTemplate = ({
   )
 }
 
-SingerTemplate.propTypes = {
+SongDetailsTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
   description: PropTypes.string,
@@ -55,12 +55,12 @@ SingerTemplate.propTypes = {
   helmet: PropTypes.object,
 }
 
-const SingerPage = ({ data }) => {
+const SongDetails = ({ data }) => {
   const { markdownRemark: post } = data
 
   return (
     <Layout>
-      <SingerTemplate
+      <SongDetailsTemplate
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
@@ -80,16 +80,16 @@ const SingerPage = ({ data }) => {
   )
 }
 
-SingerPage.propTypes = {
+SongDetails.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.object,
   }),
 }
 
-export default SingerPage;
+export default SongDetails
 
 export const pageQuery = graphql`
-  query SingerPage($id: String!) {
+  query SongDetailsByID($id: String!) {
     markdownRemark(id: { eq: $id }) {
       id
       html

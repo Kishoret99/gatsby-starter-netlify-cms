@@ -91,23 +91,11 @@ collections:
       - {label: "Movie Title", name: "movietitle", widget: "relation", collection: "movies", searchField: "title", displayField: "title"}
       - {label: "Created Date", name: "createdDate", widget: "datetime"}
       - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
-      - {label: "Lyric Writer", name: "lyricist", widget: "relation", collection: "lyricists", searchField: "title"}
-      - {label: "Singers", name: "singers", widget: "list", fields: [{label: "Singer Name", name: "singer", widget: "relation", collection: "singers", searchField: "title"}]}
+      - {label: "Lyric Writer", name: "lyricist", widget: "relation", collection: "people", searchField: "title"}
+      - {label: "Singers", name: "singers", widget: "list", fields: [{label: "Singer Name", name: "singer", widget: "relation", collection: "people", searchField: "title"}]}
       - {label: "Duration", name: "duration", widget: "string"}
       - {label: "Locale", name: "locale", widget: "string"}
       - {label: "Lyrics", name: "lyrics", widget: "markdown"}
-
-  - {name: "lyricists", label: "Lyricists",	folder: "src/pages/lyricists", create: true, slug: "{{slug}}", fields: [{label: "Title", name: "title", widget: "string"}]}
-	
-  - name: "singers" 
-    label: "Singers"
-    folder: "src/pages/singers"
-    create: true
-    slug: "{{slug}}"
-    fields: 
-      - { label: "Template Key", name: "templateKey", widget: "hidden", default: "singer-page"}
-      - { label: "Title", name: "title", widget: "string"}
-
 
   - name: "people" 
     label: "People"
