@@ -6,7 +6,7 @@ import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
-export const BlogPostTemplate = ({
+export const PeopleTemplate = ({
   content,
   contentComponent,
   description,
@@ -18,7 +18,7 @@ export const BlogPostTemplate = ({
 
   return (
     <section className="section">
-      <h1>Hello</h1>
+      <h1>People details</h1>
       {helmet || ''}
       <div className="container content">
         <div className="columns">
@@ -47,7 +47,7 @@ export const BlogPostTemplate = ({
   )
 }
 
-BlogPostTemplate.propTypes = {
+PeopleTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
   description: PropTypes.string,
@@ -55,12 +55,12 @@ BlogPostTemplate.propTypes = {
   helmet: PropTypes.object,
 }
 
-const BlogPost = ({ data }) => {
+const PeoplePage = ({ data }) => {
   const { markdownRemark: post } = data
 
   return (
     <Layout>
-      <BlogPostTemplate
+      <PeopleTemplate
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
@@ -80,16 +80,16 @@ const BlogPost = ({ data }) => {
   )
 }
 
-BlogPost.propTypes = {
+PeoplePage.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.object,
   }),
 }
 
-export default BlogPost
+export default PeoplePage;
 
 export const pageQuery = graphql`
-  query BlogPostByID($id: String!) {
+  query PeoplePage($id: String!) {
     markdownRemark(id: { eq: $id }) {
       id
       html

@@ -1,3 +1,5 @@
+publish_mode: editorial_workflow
+
 backend:
   name: git-gateway
   branch: master
@@ -26,6 +28,95 @@ collections:
       - {label: "Featured Image", name: "featuredimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
+      - label: "nothing"
+        name: "nothingsa" 
+        widget: "list"
+        fields:
+          - {label: Quote, name: quote, widget: string, default: "Everything is awesome!"}
+          - label: Author
+            name: author
+            widget: object
+            fields:
+              - {label: Name, name: name, widget: string, default: "Emmet"}
+              - {label: Avatar, name: avatar, widget: image, default: "/img/coffee.jpg"}
+      - label: "Profile"
+        name: "profile"
+        widget: "object"
+        fields:
+          - {label: "Public", name: "public", widget: "boolean", default: true}
+          - {label: "Name", name: "name", widget: "string"}
+          - label: "Birthdate"
+            name: "birthdate"
+            widget: "date"
+            default: ""
+            format: "MM/DD/YYYY"
+          - label: "Address"
+            name: "address"
+            widget: "object"
+            fields: 
+              - {label: "Street Address", name: "street", widget: "string"}
+              - {label: "City", name: "city", widget: "string"}
+              - {label: "Postal Code", name: "post-code", widget: "string"}
+          - label: "Post Author"
+            name: "author"
+            widget: "relation"
+            collection: "blog"
+            searchFields: ["title"]
+            valueField: "title"
+
+  - name: "movies"
+    label: "Movies"
+    folder: "src/pages/movies"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "movie-details"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Director", name: "director", widget: "text"}
+      - {label: "Featured Movie", name: "featuredmovie", widget: "boolean"}
+      - {label: "Featured Image", name: "featuredimage", widget: image}
+      - {label: "Created Date", name: "createdDate", widget: "datetime"}
+      - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Tags", name: "tags", widget: "list"}
+
+  - name: "songs"
+    label: "Songs"
+    folder: "src/pages/songs"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "song-details"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Movie Title", name: "movietitle", widget: "relation", collection: "movies", searchField: "title", displayField: "title"}
+      - {label: "Created Date", name: "createdDate", widget: "datetime"}
+      - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
+      - {label: "Lyric Writer", name: "lyricist", widget: "relation", collection: "lyricists", searchField: "title"}
+      - {label: "Singers", name: "singers", widget: "list", fields: [{label: "Singer Name", name: "singer", widget: "relation", collection: "singers", searchField: "title"}]}
+      - {label: "Duration", name: "duration", widget: "string"}
+      - {label: "Locale", name: "locale", widget: "string"}
+      - {label: "Lyrics", name: "lyrics", widget: "markdown"}
+
+  - {name: "lyricists", label: "Lyricists",	folder: "src/pages/lyricists", create: true, slug: "{{slug}}", fields: [{label: "Title", name: "title", widget: "string"}]}
+	
+  - name: "singers" 
+    label: "Singers"
+    folder: "src/pages/singers"
+    create: true
+    slug: "{{slug}}"
+    fields: 
+      - { label: "Template Key", name: "templateKey", widget: "hidden", default: "singer-page"}
+      - { label: "Title", name: "title", widget: "string"}
+
+
+  - name: "people" 
+    label: "People"
+    folder: "src/pages/people"
+    create: true
+    slug: "{{slug}}"
+    fields: 
+      - { label: "Template Key", name: "templateKey", widget: "hidden", default: "people-page"}
+      - { label: "Name", name: "title", widget: "string"}
 
   - name: "pages"
     label: "Pages"
