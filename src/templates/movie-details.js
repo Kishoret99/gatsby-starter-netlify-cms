@@ -94,10 +94,11 @@ export const pageQuery = graphql`
       id
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
         title
-        description
-        tags
+        updatedDate(formatString: "MMMM DD, YYYY")
+        releasedDate(formatString: "MMMM DD, YYYY")
+        director
+        artists
       }
     }
   }
