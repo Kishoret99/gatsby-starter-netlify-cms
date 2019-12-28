@@ -10,6 +10,8 @@ import IndexPagePreview from './preview-templates/IndexPagePreview'
 import PeoplePagePreview from './preview-templates/PeoplePagePreview'
 import SongDetailsPreview from './preview-templates/SongDetailsPreview'
 
+import '../components/all.sass'
+
 
 CMS.registerMediaLibrary(uploadcare)
 CMS.registerMediaLibrary(cloudinary)

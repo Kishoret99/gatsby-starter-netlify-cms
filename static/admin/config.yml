@@ -28,58 +28,21 @@ collections:
       - {label: "Featured Image", name: "featuredimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
-      - label: "nothing"
-        name: "nothingsa" 
-        widget: "list"
-        fields:
-          - {label: Quote, name: quote, widget: string, default: "Everything is awesome!"}
-          - label: Author
-            name: author
-            widget: object
-            fields:
-              - {label: Name, name: name, widget: string, default: "Emmet"}
-              - {label: Avatar, name: avatar, widget: image, default: "/img/coffee.jpg"}
-      - label: "Profile"
-        name: "profile"
-        widget: "object"
-        fields:
-          - {label: "Public", name: "public", widget: "boolean", default: true}
-          - {label: "Name", name: "name", widget: "string"}
-          - label: "Birthdate"
-            name: "birthdate"
-            widget: "date"
-            default: ""
-            format: "MM/DD/YYYY"
-          - label: "Address"
-            name: "address"
-            widget: "object"
-            fields: 
-              - {label: "Street Address", name: "street", widget: "string"}
-              - {label: "City", name: "city", widget: "string"}
-              - {label: "Postal Code", name: "post-code", widget: "string"}
-          - label: "Post Author"
-            name: "author"
-            widget: "relation"
-            collection: "blog"
-            searchFields: ["title"]
-            valueField: "title"
 
   - name: "movies"
     label: "Movies"
     folder: "src/pages/movies"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "movie-details"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Director", name: "director", widget: "text"}
-      - {label: "Featured Movie", name: "featuredmovie", widget: "boolean"}
-      - {label: "Featured Image", name: "featuredimage", widget: image}
       - {label: "Created Date", name: "createdDate", widget: "datetime"}
       - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Tags", name: "tags", widget: "list"}
-
+      - {label: "Director", name: "director", widget: "relation", collection: "people", searchField: "title", displayField: "title"}
+      - {label: "Release Date", name: "releaseDate", widget: "datetime"}
+      - {label: "Artists", name: "artists", widget: "list", fields: [{label: "Artist Name", name: "artist", widget: "relation", collection: "people", searchField: "title"}]}
+      
   - name: "songs"
     label: "Songs"
     folder: "src/pages/songs"
