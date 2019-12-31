@@ -85,3 +85,36 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     })
   }
 }
+
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions
+  const typeDefs = [
+    "type MarkdownRemark implements Node { frontmatter: Frontmatter }",
+    schema.buildObjectType({
+      name: "Frontmatter",
+      fields: {
+        blog: {
+          type: "MarkdownRemark",
+          resolve: (source, args, context, info) => {
+            // If you were linking by ID, you could use `getNodeById` to
+            // find the correct author:
+            // return context.nodeModel.getNodeById({
+            //   id: source.author,
+            //   type: "AuthorJson",
+            // })
+            // But since the example is using the author email as foreign key,
+            // you can use `runQuery`, or get all author nodes
+            // with `getAllNodes` and manually find the linked author
+            // node:
+            return context.nodeModel
+              .getAllNodes({ type: "MarkdownRemark" })
+              .find(blog => {
+                return blog.frontmatter.title === source.blog
+              })
+          },
+        },
+      },
+    }),
+  ]
+  createTypes(typeDefs)
+}

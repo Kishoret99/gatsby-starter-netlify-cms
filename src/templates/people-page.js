@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 
 export const PeopleTemplate = ({
-  title
+  title, 
+  blog
 }) => {
 
   return (
@@ -11,6 +12,7 @@ export const PeopleTemplate = ({
       <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
         {title}
       </h1>
+  <section>{blog}</section>
     </section>
   )
 }
@@ -25,6 +27,7 @@ const PeoplePage = ({ data }) => {
   return (
     <PeopleTemplate
       title={post.frontmatter.title}
+      blog={post.frontmatter.blog.frontmatter.title + '@@@@' + post.frontmatter.blog.frontmatter.description}
     />
   )
 }
@@ -44,6 +47,12 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        blog {
+          frontmatter {
+            title
+            description
+          }
+        }
       }
     }
   }
