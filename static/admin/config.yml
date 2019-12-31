@@ -41,7 +41,7 @@ collections:
       - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
       - {label: "Director", name: "director", widget: "relation", collection: "people", searchField: "title", displayField: "title"}
       - {label: "Release Date", name: "releaseDate", widget: "datetime"}
-      - {label: "Artists", name: "artists", widget: "list", fields: [{label: "Artist Name", name: "artist", widget: "relation", collection: "people", searchField: "title"}]}
+      - {label: "Artists", name: "artists", widget: "list", fields: [{label: "Artist Name", name: "artist", widget: "relation", collection: "people", searchFields: ["title"], valueField: "id"}]}
       
   - name: "songs"
     label: "Songs"
@@ -54,8 +54,7 @@ collections:
       - {label: "Movie Title", name: "movietitle", widget: "relation", collection: "movies", searchField: "title", displayField: "title"}
       - {label: "Created Date", name: "createdDate", widget: "datetime"}
       - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
-      - {label: "Lyric Writer", name: "lyricist", widget: "relation", collection: "people", searchField: "title"}
-      - {label: "Singers", name: "singers", widget: "list", fields: [{label: "Singer Name", name: "singer", widget: "relation", collection: "people", searchField: "title"}]}
+      - {label: "Singer Name", name: "singer", widget: "relation", collection: "people", searchFields: ["title"], valueField: "id"}
       - {label: "Duration", name: "duration", widget: "string"}
       - {label: "Locale", name: "locale", widget: "string"}
       - {label: "Lyrics", name: "lyrics", widget: "markdown"}
@@ -68,6 +67,7 @@ collections:
     fields: 
       - { label: "Template Key", name: "templateKey", widget: "hidden", default: "people-page"}
       - { label: "Name", name: "title", widget: "string"}
+      - { label: "blog Name", name: "blog", widget: "relation", collection: "blog", searchFields: ["title"], displayFields: ["title"], valueField: "title"}
 
   - name: "pages"
     label: "Pages"

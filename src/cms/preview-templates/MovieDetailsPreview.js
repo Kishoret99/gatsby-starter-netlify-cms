@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { MovieDetailsTemplate } from '../../templates/movie-details'
 
-const MovieDetailsPreview = ({ entry, widgetFor }) => (
-  <MovieDetailsTemplate
-    content={widgetFor('body')}
-    description={entry.getIn(['data', 'description'])}
-    tags={entry.getIn(['data', 'tags'])}
+const MovieDetailsPreview = ({ entry, widgetFor, fieldsMetaData }) => {
+  console.log(fieldsMetaData.toJS());
+  return (<MovieDetailsTemplate
     title={entry.getIn(['data', 'title'])}
-  />
-)
+  />)
+}
 
 MovieDetailsPreview.propTypes = {
   entry: PropTypes.shape({
