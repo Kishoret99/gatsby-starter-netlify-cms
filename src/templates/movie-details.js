@@ -97,8 +97,16 @@ export const pageQuery = graphql`
         title
         updatedDate(formatString: "MMMM DD, YYYY")
         releasedDate(formatString: "MMMM DD, YYYY")
-        director
-        artists
+        director {
+          frontmatter {
+            title
+          }
+        }
+        artists {
+          frontmatter {
+            title
+          }
+        }
       }
     }
   }

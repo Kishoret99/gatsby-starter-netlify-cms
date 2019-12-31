@@ -36,10 +36,12 @@ collections:
     slug: "{{slug}}"
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "movie-details"}
+      - { label: UID, name: uid, widget: ncw-id, prefix: movies, timestamp: true, hint: This widget generate an unique read-only id}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Created Date", name: "createdDate", widget: "datetime"}
       - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
-      - {label: "Director", name: "director", widget: "relation", collection: "people", searchField: "title", displayField: "title"}
+      - {label: "Director", name: "director", widget: "relation", collection: "people", searchFields: ["title"], displayFields: ["title"], valueField: "uid"}
+      - {label: "Music Director", name: "musicDirector", widget: "relation", collection: "people", searchFields: ["title"], displayFields: ["title"], valueField: "uid"}
       - {label: "Release Date", name: "releaseDate", widget: "datetime"}
       - {label: "Artists", name: "artists", widget: "list", fields: [{label: "Artist Name", name: "artist", widget: "relation", collection: "people", searchFields: ["title"], valueField: "id"}]}
       
@@ -50,6 +52,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "song-details"}
+      - { label: UID, name: uid, widget: ncw-id, prefix: songs, timestamp: true, hint: This widget generate an unique read-only id}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Movie Title", name: "movietitle", widget: "relation", collection: "movies", searchField: "title", displayField: "title"}
       - {label: "Created Date", name: "createdDate", widget: "datetime"}
@@ -66,8 +69,8 @@ collections:
     slug: "{{slug}}"
     fields: 
       - { label: "Template Key", name: "templateKey", widget: "hidden", default: "people-page"}
+      - { label: UID, name: uid, widget: ncw-id, prefix: people, timestamp: true, hint: This widget generate an unique read-only id}
       - { label: "Name", name: "title", widget: "string"}
-      - { label: "blog Name", name: "blog", widget: "relation", collection: "blog", searchFields: ["title"], displayFields: ["title"], valueField: "title"}
 
   - name: "pages"
     label: "Pages"

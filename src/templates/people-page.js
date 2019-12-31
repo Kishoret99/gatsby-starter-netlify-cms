@@ -27,7 +27,6 @@ const PeoplePage = ({ data }) => {
   return (
     <PeopleTemplate
       title={post.frontmatter.title}
-      blog={post.frontmatter.blog.frontmatter.title + '@@@@' + post.frontmatter.blog.frontmatter.description}
     />
   )
 }
@@ -47,12 +46,6 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        blog {
-          frontmatter {
-            title
-            description
-          }
-        }
       }
     }
   }

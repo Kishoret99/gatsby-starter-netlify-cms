@@ -113,6 +113,26 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
               })
           },
         },
+        director: {
+          type: "MarkdownRemark",
+          resolve: (source, args, context, info) => {
+            return context.nodeModel
+              .getAllNodes({ type: "MarkdownRemark" })
+              .find(people => {
+                return people.frontmatter.uid === source.director
+              })
+          },
+        },
+        artists: {
+          type: "[MarkdownRemark]",
+          resolve: (source, args, context, info) => {
+            const markdownNodes =  context.nodeModel.getAllNodes({ type: "MarkdownRemark" });
+            const artists = source.artists.map(artistId => {
+              return markdownNodes.find(markdownNode => markdownNode.frontmatter.uid === artistId);
+            })
+            return artists;
+          },
+        },
       },
     }),
   ]
