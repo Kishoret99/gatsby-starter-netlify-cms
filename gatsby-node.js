@@ -93,26 +93,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     schema.buildObjectType({
       name: "Frontmatter",
       fields: {
-        blog: {
-          type: "MarkdownRemark",
-          resolve: (source, args, context, info) => {
-            // If you were linking by ID, you could use `getNodeById` to
-            // find the correct author:
-            // return context.nodeModel.getNodeById({
-            //   id: source.author,
-            //   type: "AuthorJson",
-            // })
-            // But since the example is using the author email as foreign key,
-            // you can use `runQuery`, or get all author nodes
-            // with `getAllNodes` and manually find the linked author
-            // node:
-            return context.nodeModel
-              .getAllNodes({ type: "MarkdownRemark" })
-              .find(blog => {
-                return blog.frontmatter.title === source.blog
-              })
-          },
-        },
         director: {
           type: "MarkdownRemark",
           resolve: (source, args, context, info) => {
@@ -127,10 +107,14 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           type: "[MarkdownRemark]",
           resolve: (source, args, context, info) => {
             const markdownNodes =  context.nodeModel.getAllNodes({ type: "MarkdownRemark" });
-            const artists = source.artists.map(artistId => {
-              return markdownNodes.find(markdownNode => markdownNode.frontmatter.uid === artistId);
+            let artistsMarkdownNodes = [];
+            source.artists.forEach(artistId => {
+              const node = markdownNodes.find(markdownNode => markdownNode.frontmatter.uid === artistId);
+              if(node) {
+                artistsMarkdownNodes.push(node);
+              }
             })
-            return artists;
+            return artistsMarkdownNodes;
           },
         },
       },
