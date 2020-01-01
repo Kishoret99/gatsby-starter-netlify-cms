@@ -1,24 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { kebabCase } from 'lodash'
 import Helmet from 'react-helmet'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
 export const SongDetailsTemplate = ({
   content,
   contentComponent,
-  description,
-  tags,
   title,
+  movieTitle,
+  createdDate,
+  updatedDate,
+  singers,
+  lyricist,
+  duration,
+  locale,
   helmet,
 }) => {
   const PostContent = contentComponent || Content
 
   return (
     <section className="section">
-      <h1>{'Movie detailss'}</h1>
       {helmet || ''}
       <div className="container content">
         <div className="columns">
@@ -26,20 +29,20 @@ export const SongDetailsTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <p>{description}</p>
+            <p>Created At: {createdDate && (new Date(createdDate)).toDateString()} | Updated At: {updatedDate && (new Date(updatedDate)).toDateString()} | Duration:{duration}</p>
+            <p>Language: {locale}</p>
+            <h6>Movie Title</h6>
+            <p>{movieTitle}</p>
+            <br></br>
+            
+            <h6>Singers</h6>
+            {singers.map(singer => (<p key={singer.frontmatter.title}>{singer.frontmatter.title}</p>))}
+            <br></br>
+
+            <h6>Lyricist</h6>
+            {lyricist && <p>{lyricist.frontmatter.title}</p>}
+
             <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: `4rem` }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map(tag => (
-                    <li key={tag + `tag`}>
-                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
           </div>
         </div>
       </div>
@@ -50,8 +53,14 @@ export const SongDetailsTemplate = ({
 SongDetailsTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
-  description: PropTypes.string,
   title: PropTypes.string,
+  movieTitle: PropTypes.string,
+  createdDate: PropTypes.string,
+  updatedDate: PropTypes.string,
+  singers: PropTypes.arrayOf(PropTypes.shape({frontmatter: PropTypes.shape({title: PropTypes.string})})),
+  lyricist: PropTypes.shape({frontmatter: PropTypes.shape({title: PropTypes.string})}),
+  duration: PropTypes.string,
+  locale: PropTypes.string,
   helmet: PropTypes.object,
 }
 
@@ -63,7 +72,6 @@ const SongDetails = ({ data }) => {
       <SongDetailsTemplate
         content={post.html}
         contentComponent={HTMLContent}
-        description={post.frontmatter.description}
         helmet={
           <Helmet titleTemplate="%s | Blog">
             <title>{`${post.frontmatter.title}`}</title>
@@ -73,8 +81,13 @@ const SongDetails = ({ data }) => {
             />
           </Helmet>
         }
-        tags={post.frontmatter.tags}
         title={post.frontmatter.title}
+        createdDate={post.frontmatter.createdDate}
+        updatedDate={post.frontmatter.updatedDate}
+        singers={post.frontmatter.singers}
+        lyricist={post.frontmatter.lyricist}
+        duration={post.frontmatter.duration}
+        locale={post.frontmatter.locale}
       />
     </Layout>
   )
@@ -94,10 +107,22 @@ export const pageQuery = graphql`
       id
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
         title
         description
-        tags
+        createdDate
+        updatedDate
+        singers: singers{
+          frontmatter {
+            title
+          }
+        }
+        lyricist {
+          frontmatter {
+            title
+          }
+        }
+        duration
+        locale
       }
     }
   }

@@ -5,6 +5,8 @@ import Layout from '../components/Layout'
 
 export const MovieDetailsTemplate = ({
   title, 
+  director,
+  artists
 }) => {
 
   return (
@@ -12,6 +14,8 @@ export const MovieDetailsTemplate = ({
       <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
         {title}
       </h1>
+      <h2> Director: {director}</h2>
+      {artists.map(artist => <p>{artist.frontmatter.title}</p>)}
     </section>
   )
 }
@@ -31,6 +35,8 @@ const MovieDetails = ({ data }) => {
     <Layout>
       <MovieDetailsTemplate
         title={post.frontmatter.title}
+        director={post.frontmatter.director.frontmatter.title}
+        artists={post.frontmatter.artists}
       />
     </Layout>
   )

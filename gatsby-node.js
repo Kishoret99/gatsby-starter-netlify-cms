@@ -108,13 +108,37 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           resolve: (source, args, context, info) => {
             const markdownNodes =  context.nodeModel.getAllNodes({ type: "MarkdownRemark" });
             let artistsMarkdownNodes = [];
-            source.artists.forEach(artistId => {
-              const node = markdownNodes.find(markdownNode => markdownNode.frontmatter.uid === artistId);
+            source.artists && Array.isArray(source.artists) && source.artists.forEach(artistObj => {
+              const node = markdownNodes.find(markdownNode => markdownNode.frontmatter.uid === artistObj.artist);
               if(node) {
                 artistsMarkdownNodes.push(node);
               }
             })
             return artistsMarkdownNodes;
+          },
+        },
+        singers: {
+          type: "[MarkdownRemark]",
+          resolve: (source, args, context, info) => {
+            const markdownNodes =  context.nodeModel.getAllNodes({ type: "MarkdownRemark" });
+            let artistsMarkdownNodes = [];
+            source.singers && Array.isArray(source.singers) && source.singers.forEach(singerId => {
+              const node = markdownNodes.find(markdownNode => markdownNode.frontmatter.uid === singerId);
+              if(node) {
+                artistsMarkdownNodes.push(node);
+              }
+            })
+            return artistsMarkdownNodes;
+          },
+        },
+        lyricist: {
+          type: "MarkdownRemark",
+          resolve: (source, args, context, info) => {
+            return context.nodeModel
+              .getAllNodes({ type: "MarkdownRemark" })
+              .find(people => {
+                return people.frontmatter.uid === source.lyricist
+              })
           },
         },
       },

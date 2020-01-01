@@ -2,7 +2,8 @@
 templateKey: song-details
 uid: songs-1577856253087-06OVt28O
 title: Reddy Ikkada Soodu
-movieTitle: movies-1577775465017-1LjEtAu-
+description: Song from Jr Ntr and Trivikram. Beautiful song
+movieTitle: movies-1577858753509-gGqtrA1n
 createdDate: 2019-11-27T05:24:13.353Z
 updatedDate: 2020-01-01T05:24:13.392Z
 lyricist: people-1577772193426-mdTj19Qh
