@@ -49,18 +49,20 @@ collections:
     label: "Songs"
     folder: "src/pages/songs"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "song-details"}
       - { label: UID, name: uid, widget: ncw-id, prefix: songs, timestamp: true, hint: This widget generate an unique read-only id}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Movie Title", name: "movietitle", widget: "relation", collection: "movies", searchField: "title", displayField: "title"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Movie Title", name: "movieTitle", widget: "relation", collection: "movies", searchFields: ["title"], displayFields: ["title"], valueField: "uid", default: ""}
       - {label: "Created Date", name: "createdDate", widget: "datetime"}
       - {label: "Updated Date", name: "updatedDate", widget: "datetime"}
-      - {label: "Singer Name", name: "singer", widget: "relation", collection: "people", searchFields: ["title"], valueField: "id"}
+      - {label: "Lyricist", name: "lyricist", widget: "relation", collection: "people", searchFields: ["title"], displayFields: ["title"], valueField: "uid"}
+      - {label: "Singer Name", name: "singers", widget: "relation", multiple: true, collection: "people", searchFields: ["title"], displayFields: ["title"], valueField: "uid"}
       - {label: "Duration", name: "duration", widget: "string"}
       - {label: "Locale", name: "locale", widget: "string"}
-      - {label: "Lyrics", name: "lyrics", widget: "markdown"}
+      - {label: "Lyrics", name: "body", widget: "markdown"}
 
   - name: "people" 
     label: "People"
